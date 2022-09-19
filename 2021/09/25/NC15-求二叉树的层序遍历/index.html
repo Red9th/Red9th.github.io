@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>NC15 求二叉树的层序遍历 - Red</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=每日一题,数据结构>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Red" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Red</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">NC15 求二叉树的层序遍历</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-09-25</span>
+  </div>
+  <div class="post-content">
+    <blockquote>
+<p>day8。。。还是有些知识点遗忘了</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="原题链接：NC15-求二叉树的层序遍历"><a href="#原题链接：NC15-求二叉树的层序遍历" class="headerlink" title="原题链接：NC15 求二叉树的层序遍历"></a>原题链接：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/04a5560e43e24e9db4595865dc9c63a3?tpId=188&&tqId=38595&rp=1&ru=/activity/oj&qru=/ta/job-code-high-week/question-ranking">NC15 求二叉树的层序遍历</a></h2><ul>
+<li>遍历每一层的节点，使用队列的结构，根节点不空就 push 进去，然后根据每一层的节点数继续往下扩展，内嵌一个 for 循环遍历这一层节点，结束后将这一层的节点 res 存到 ans 中。</li>
+<li>如果不是 vector 套 vector 存答案其实也不需要内嵌一个 for 循环，直接对队首节点往左右子节点扩展就行了，每次打印一下首节点的值即可。</li>
+<li>开始的时候蠢比了一下，判断节点是否是 ‘#’ ，但是这样很可能会访问到不该访问的区域，即段错误，所以肯定是判断节点地址是否存在。但是这样 ‘#’ 也进去了，我也不知道，可能之后的打印函数处理过吧。</li>
+</ul>
+<h2 id="AC-code"><a href="#AC-code" class="headerlink" title="AC code"></a>AC code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *	int val;</span></span><br><span class="line"><span class="comment"> *	struct TreeNode *left;</span></span><br><span class="line"><span class="comment"> *	struct TreeNode *right;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * </span></span><br><span class="line"><span class="comment">         * @param root TreeNode类 </span></span><br><span class="line"><span class="comment">         * @return int整型vector&lt;vector&lt;&gt;&gt;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">            <span class="comment">// write code here</span></span><br><span class="line">            queue&lt;TreeNode*&gt; q;</span><br><span class="line">            <span class="keyword">if</span>(root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">            <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">                <span class="type">int</span> s = q.<span class="built_in">size</span>();</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; s; i++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(q.<span class="built_in">front</span>()-&gt;left != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                        q.<span class="built_in">push</span>(q.<span class="built_in">front</span>()-&gt;left);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(q.<span class="built_in">front</span>()-&gt;right != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                        q.<span class="built_in">push</span>(q.<span class="built_in">front</span>()-&gt;right);</span><br><span class="line">                    &#125;</span><br><span class="line">                    res.<span class="built_in">push_back</span>(q.<span class="built_in">front</span>()-&gt;val);</span><br><span class="line">                    q.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                ans.<span class="built_in">push_back</span>(res);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" rel="tag">每日一题</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    red
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

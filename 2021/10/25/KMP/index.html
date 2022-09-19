@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>KMP - Red</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=算法学习笔记,字符串>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Red" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Red</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">KMP</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-10-25</span>
+  </div>
+  <div class="post-content">
+    <p>介绍 kmp 及其各种性质，以及 kmp 真的好难（</p>
+<span id="more"></span> 
+
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>给出一个字符串 S，再给出一个模式串 P，P 在 S 中多次作为子串出现，要求出 P 在 S 中所有出现的位置的下标。</p>
+<h2 id="朴素算法"><a href="#朴素算法" class="headerlink" title="朴素算法"></a>朴素算法</h2><p>一般的思路肯定是这样的，每次枚举一个起点，然后依次和 P 进行比较，如果最后匹配成功，则说明这个地点就是答案之一，但如果过程之中没有匹配成功，就继续枚举下一个起点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; p.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(s[i + j] != p[j]) <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">if</span>(i + j == p.<span class="built_in">size</span>() - <span class="number">1</span>) cout &lt;&lt; i &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是对于一个很长的 S ，如模板题中，长度达 1e6，时间复杂度是相当之高的。那么如何去优化算法呢？</p>
+<p>这就需要用到 KMP 算法了。</p>
+<h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p>试想一下下面这种情况：<br><img src="/%E3%80%90%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91KMP/image-20211025112236849.png" alt="image-20211025112236849"></p>
+<p>所以我们着重需要优化的地方在于这里，<strong>怎么才能在下次匹配时，让那些已经在上次匹配的过程中匹配成功的字符串保留一部分下来，从而使得在下次匹配时，某些字符串不需要重新匹配了</strong>。</p>
+<p>现在我们来用抽象的图像来代表字符串，S 具有某种性质：</p>
+<p><img src="/%E3%80%90%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91KMP/image-20211025114312402.png" alt="image-20211025114312402"></p>
+<p>假设在某次匹配中，前面黄色部分全部相同，刚好匹配到了绿色部分结果发现两字符串不同，</p>
+<p><img src="/%E3%80%90%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91KMP/image-20211025114649486.png" alt="image-20211025114649486"></p>
+<p>那么，我们不需要像朴素算法那样继续向后顺移一位，再重新比较，我们只需要像下图一样移动，然后继续比较绿色部分，这样黄色部分就不需要反反复复比较多次了。</p>
+<p><img src="/%E3%80%90%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91KMP/image-20211025114830674.png" alt="image-20211025114830674"></p>
+<p>这个过程还存在一个疑问，就是会不会在这个移动的过程之中，可能有满足的答案呢？答案是否定的，试想在移动过程中如果存在答案，那么必有 S 的一段和黄色部分绝对相等，但实际上只有两个部分和黄色部分相等，所以前缀不存在的话，就一定是在后缀的部分，中间是不可能存在答案的。</p>
+<p>这就是 KMP 的精髓，上述过程会重复多次，直到结束。</p>
+<p>那么关键是<strong>如何求解某个前缀子串的相同前后缀长度（即 next 数组）呢</strong>？</p>
+<p>其实其思想和上述过程是类似的，只是匹配的字符串是自身罢了。</p>
+<p>用一个指针 j 指向当前的前缀子串中<strong>前后缀已匹配成功的前缀的末尾</strong>，i 指向<strong>前缀子串的末尾</strong>，然后逐次往后进行P[i] 和 P[j + 1]的匹配。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> p[N], s[N];</span><br><span class="line">cin &gt;&gt; n &gt;&gt; p + <span class="number">1</span> &gt;&gt; m &gt;&gt; s + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; p[i] != p[j + <span class="number">1</span>]) j = ne[j];</span><br><span class="line">        <span class="keyword">if</span>(p[i] == p[j + <span class="number">1</span>]) j ++;</span><br><span class="line">        ne[i] = j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>匹配过程和上述代码类似：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt;= m; i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; s[i] != p[j + <span class="number">1</span>]) j = ne[j];</span><br><span class="line">        <span class="keyword">if</span>(s[i] == p[j + <span class="number">1</span>]) j ++;</span><br><span class="line">        <span class="keyword">if</span>(j == n)&#123; <span class="comment">// 匹配完毕</span></span><br><span class="line">          	<span class="comment">// 具体题目具体逻辑</span></span><br><span class="line">            j = ne[j];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="831-KMP字符串"><a href="#831-KMP字符串" class="headerlink" title="831. KMP字符串"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">831. KMP字符串</a></h2><p>模板题。</p>
+<h3 id="AC-code"><a href="#AC-code" class="headerlink" title="AC code"></a>AC code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">char</span> p[N], s[N];</span><br><span class="line"><span class="type">int</span> ne[N], n, m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; p + <span class="number">1</span> &gt;&gt; m &gt;&gt; s + <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 求模式串的next数组</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; p[i] != p[j + <span class="number">1</span>]) j = ne[j];</span><br><span class="line">        <span class="keyword">if</span>(p[i] == p[j + <span class="number">1</span>]) j ++;</span><br><span class="line">        ne[i] = j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt;= m; i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; s[i] != p[j + <span class="number">1</span>]) j = ne[j];</span><br><span class="line">        <span class="keyword">if</span>(s[i] == p[j + <span class="number">1</span>]) j ++;</span><br><span class="line">        <span class="keyword">if</span>(j == n)&#123; <span class="comment">// 匹配完毕</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, i - n);</span><br><span class="line">            j = ne[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="141-周期"><a href="#141-周期" class="headerlink" title="141. 周期"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/143/">141. 周期</a></h2><p>此题利用了 next 数组的性质。</p>
+<p><img src="/%E3%80%90%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91KMP/image-20211025192642072.png" alt="image-20211025192642072"></p>
+<p>由 next 数组的定义可知，蓝色部分相等，而 ① &#x3D; ②，① &#x3D; ③，且 ③ &#x3D; ④，所以① &#x3D; ② &#x3D; ③ &#x3D; ④。且同理可知，⑤ &#x3D; ⑥ &#x3D; ⑦ &#x3D; ⑧。倘若继续划分下去：</p>
+<p><img src="/%E3%80%90%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91KMP/image-20211025192747356.png" alt="image-20211025192747356"></p>
+<p>即，最后如果 i 能被 i - next[i]整除，即 <code>i % (i - next[i]) = 0</code>，那么 i - next[i] 一定是这一段前缀子串的最小循环元。</p>
+<p>从而我们只需要遍历一遍 next 数组即可。</p>
+<h3 id="AC-code-1"><a href="#AC-code-1" class="headerlink" title="AC code"></a>AC code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> t = <span class="number">1</span>, n;</span><br><span class="line"><span class="type">char</span> s[<span class="number">1000010</span>];</span><br><span class="line"><span class="type">int</span> ne[<span class="number">1000010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin.<span class="built_in">tie</span>();</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; n &gt;&gt; (s + <span class="number">1</span>) &amp;&amp; s[<span class="number">1</span>] != <span class="string">&#x27;0&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Test case #%d\n&quot;</span>, t ++);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(j &amp;&amp; s[i] != s[j + <span class="number">1</span>]) j = ne[j];</span><br><span class="line">            <span class="keyword">if</span>(s[i] == s[j + <span class="number">1</span>]) j ++;</span><br><span class="line">            ne[i] = j;</span><br><span class="line">            <span class="comment">// printf(&quot;ne[%d] = %d\n&quot;, i, j);</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> len = <span class="number">2</span>; len &lt;= n; len ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ne[len] &amp;&amp; len % (len - ne[len]) == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, len, len / (len - ne[len]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">算法学习笔记</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    red
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

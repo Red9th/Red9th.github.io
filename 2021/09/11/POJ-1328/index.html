@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>POJ-1328 - Red</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=每日一题>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Red" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Red</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">POJ-1328</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-09-11</span>
+  </div>
+  <div class="post-content">
+    <p><strong>原题链接</strong>：<a target="_blank" rel="noopener" href="https://vjudge.net/problem/POJ-1328">Radar Installation</a></p>
+<span id="more"></span>
+
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a><strong>描述</strong></h3><p>现有一堆在x轴以上的点，要求是在x轴上安装最少数量的雷达以覆盖这些点，雷达的覆盖半径在每个case中都已经给出。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h3><p>一个雷达是否能覆盖一个点在于的是这个点和雷达的距离与覆盖半径的关系，那么根据高中数学知识，只要以该点为圆心，做半径等于覆盖半径的圆，看其是否与x轴有交点即可。</p>
+<p>得到这个结论之后就是最少数量的雷达了，这个问题也好解决。在一个case中，我们会得到多个与x轴的交区间或者是交点，亦或是与x轴没有交点，那x轴上就没有任何的雷达能覆盖到这个点了（直接就是-1了）。</p>
+<p>所以，我们的目标就是去找交集。先将所有的区间以区间左值排序，然后进行贪心的操作，对于两个相邻的要比较的区间，只会有两种情况存在，一种是两个区间没有交集，那好办，直接在上一个的答案的基础上++就可以了；如果有交集（当前区间左值小于range），那就不用在上一次答案的基础上++了，此时我们要做的操作是找到这个交集的左右端点，所以有一个取当前区间右值和range中的min值得到新的range值这个操作。（range就是交集的右值）</p>
+<h3 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a><strong>吐槽</strong></h3><ol>
+<li>大概本人当时就是没想到这一堆区间的交集是怎么取的。。感觉这个地方应该思索了很久。现在想来的确是贪心的思想orz</li>
+<li>忘记是在while循环里面了，所以那句f &#x3D; 1;一直没有加上去，找了不知道多久的bug，反应迟钝（</li>
+</ol>
+<hr>
+<p><strong>AC代码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">    <span class="type">int</span> x, y; <span class="comment">//圆心</span></span><br><span class="line">    <span class="type">double</span> l, r; <span class="comment">//被x轴所截的左右截点x值</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">struct</span> node a, <span class="keyword">struct</span> node b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.l &lt;= b.l;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">node</span> p[<span class="number">1010</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">int</span> n, d, f = <span class="number">1</span>, sum = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;d);</span><br><span class="line">    <span class="keyword">while</span>(n != <span class="number">0</span> &amp;&amp; d != <span class="number">0</span>)&#123;</span><br><span class="line">        f = <span class="number">1</span>; <span class="comment">//别忘了重新初始化</span></span><br><span class="line">        sum++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;p[i].x, &amp;p[i].y);</span><br><span class="line">            <span class="keyword">if</span>(p[i].y &lt;= d)&#123;</span><br><span class="line">                p[i].l = p[i].x - <span class="built_in">sqrtf</span>(d * d - p[i].y * p[i].y);</span><br><span class="line">                p[i].r = p[i].x + <span class="built_in">sqrtf</span>(d * d - p[i].y * p[i].y);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> f = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!f) <span class="built_in">printf</span>(<span class="string">&quot;Case %d: -1\n&quot;</span>, sum);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">sort</span>(p, p+n, cmp);</span><br><span class="line">            <span class="type">double</span> range = p[<span class="number">0</span>].r;</span><br><span class="line">            <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="comment">//有重合的区域，只用放一颗雷达，range找到该交集的右端点</span></span><br><span class="line">                <span class="keyword">if</span>(p[i].l &lt;= range) range = <span class="built_in">min</span>(p[i].r, range); </span><br><span class="line">                <span class="keyword">else</span>&#123; <span class="comment">//没有重合区域，各需两颗雷达</span></span><br><span class="line">                    range = p[i].r;</span><br><span class="line">                    ans++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Case %d: %d\n&quot;</span>, sum, ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;d);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" rel="tag">每日一题</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    red
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

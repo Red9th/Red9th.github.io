@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>质数筛法 - Red</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=算法学习笔记,数论>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Red" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Red</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">质数筛法</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-11-08</span>
+  </div>
+  <div class="post-content">
+    <p>朴素筛、埃氏筛、欧拉筛（线性筛）。</p>
+<span id="more"></span>
+
+<h1 id="朴素筛"><a href="#朴素筛" class="headerlink" title="朴素筛"></a>朴素筛</h1><p>筛掉每一个数的倍数。时间复杂度：O(nlogn)，证明如下：<br>$$\frac{n}{2} + \frac{n}{3} + \frac{n}{5} + … + \frac{n}{n} &#x3D; n(\frac{1}{2} + \frac{1}{3} + \frac{1}{5} + … + \frac{1}{n}) &lt; n\int_{1}^{n}{\frac{1}{x}}dx &#x3D; n\ln n &lt; n\log n$$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n, primes[N], idx;</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])&#123;</span><br><span class="line">            st[i] = <span class="literal">true</span>;</span><br><span class="line">            primes[idx++] = i;</span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = i + i; j &lt;= n; j += i) st[j] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; idx;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="埃氏筛"><a href="#埃氏筛" class="headerlink" title="埃氏筛"></a>埃氏筛</h1><p>筛掉每个质数的倍数。时间复杂度：$O(nloglogn) ≈ O(n)$<br>由于$1 - n$中有$\frac{n}{\ln n}$个质数，所以时间复杂度近似于将上一种筛法的时间复杂度除$logn$，级别和$O(n)$基本相同。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n, primes[N], idx = <span class="number">0</span>;</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])&#123;</span><br><span class="line">            st[i] = <span class="literal">true</span>;</span><br><span class="line">            primes[idx++] = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = i + i; j &lt;= n; j += i) st[j] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; idx;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="线性筛"><a href="#线性筛" class="headerlink" title="线性筛"></a>线性筛</h1><p>每次对 i 从小到大枚举质因子，那么：<br>当<code>i % primes[j] == 0</code>时，<code>primes[j]</code>一定是<code>primes[j] * i</code>的最小质因子。<br>当<code>i % primes[j] != 0</code>时，<code>primes[j]</code>一定小于i的所有质因子，<code>primes[j]</code>也一定是<code>primes[j] * i</code>的最小质因子。<br><strong>为什么这种筛法是线性的呢？</strong><br>对于一个合数 x，若 pj 是其最小质因子，那么在枚举 i 时，比起先到 x，一定会先到 <code>x / pj</code>，那么在此时，就会在循环中被<code>x / pj * pj</code>（即被它的最小质因子筛掉）筛掉。所以实际上每个合数只会被其最小质因子筛掉，即每个数只会被筛一次。所以是线性的。<br><strong>为什么在第二层循环中条件是<code>primes[j] &lt;= n / i</code>呢？</strong><br>其实是一种防止溢出的写法，实际上表示的是<code>primes[j] * i</code>要小于等于 n 才行，否则里面的 st 数组会越界。<br><strong>为什么不用在枚举 j 时加上<code>j &lt; idx</code>呢？（换句话说，为什么 j 一定小于 idx 呢？）</strong><br>因为在枚举到 i 时，小于等于 i 的质数已经全部找到了，而 i 的质因子一定小于等于 i ，所以此时枚举的 j 一定没有超出 idx 的限制，即 <code>primes[j]</code> 是一定存在的。<br><strong>时间复杂度</strong><br>若$n ≈ 1e6$，线性筛和埃氏筛的时间效率差不多，若$n ≈ 1e7$，线性筛会比埃氏筛快了大概一倍。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n, primes[N], idx = <span class="number">0</span>;</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i]) primes[idx ++] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; primes[j] &lt;= n / i; j++)&#123;</span><br><span class="line">            st[primes[j] * i] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(i % primes[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; idx;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">算法学习笔记</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    red
+  </span>
+</footer>
+    </div>
+  </body>
+</html>
