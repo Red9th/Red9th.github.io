@@ -1,63 +1,170 @@
 <!DOCTYPE html>
-<html>
-  <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  
-  <title>Codeforces Round - Red</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  
-  <meta name="keywords" content=补题>
-  
-  
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
-  
-  
-    <link rel="alternate" href="/atom.xml " title="Red" type="application/atom+xml">
-  
-
-  
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Codeforces Round #748 (Div. 3) 第一次打cf，反正自己多菜心里是再清楚不过了，老老实实补题（ 主要补了A B C D1 E  A. Elections题意有三个人参加选举，三人有不同的选票，对每个人来说，至少要增加多少票才能让ta的选票严格大于其他两个人的。 AC code最简单的一题了，直接写就行。 12345678910111213141516171819202">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codeforces Round 748 (Div. 3)">
+<meta property="og:url" content="http://example.com/2021/10/14/Codeforces-Round-748-Div-3/index.html">
+<meta property="og:site_name" content="Red&#39;s blog">
+<meta property="og:description" content="Codeforces Round #748 (Div. 3) 第一次打cf，反正自己多菜心里是再清楚不过了，老老实实补题（ 主要补了A B C D1 E  A. Elections题意有三个人参加选举，三人有不同的选票，对每个人来说，至少要增加多少票才能让ta的选票严格大于其他两个人的。 AC code最简单的一题了，直接写就行。 12345678910111213141516171819202">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-14T14:32:21.000Z">
+<meta property="article:modified_time" content="2022-10-12T13:13:30.315Z">
+<meta property="article:author" content="Red9th">
+<meta property="article:tag" content="算法竞赛">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Codeforces Round 748 (Div. 3)</title>
+    <!-- styles -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
 <meta name="generator" content="Hexo 6.3.0"></head>
-  <body>
-    <div class="container">
-      <header class="header">
-  <div class="blog-title">
-    <a href="/" class="logo">Red</a>
-    <div class="subtitle"></div>
-  </div>
-  <nav class="navbar">
-    <ul class="menu">
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/12/13/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/09/13/%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B88/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&text=Codeforces Round 748 (Div. 3)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&is_video=false&description=Codeforces Round 748 (Div. 3)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Codeforces Round 748 (Div. 3)&body=Check out this article: http://example.com/2021/10/14/Codeforces-Round-748-Div-3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&name=Codeforces Round 748 (Div. 3)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&t=Codeforces Round 748 (Div. 3)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-Elections"><span class="toc-number">1.</span> <span class="toc-text">A. Elections</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code"><span class="toc-number">1.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-Make-it-Divisible-by-25"><span class="toc-number">2.</span> <span class="toc-text">B. Make it Divisible by 25</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-number">2.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-1"><span class="toc-number">2.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-Save-More-Mice%EF%BC%88%E4%BA%8C%E5%88%86%EF%BC%8C%E8%B4%AA%E5%BF%83%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">C. Save More Mice（二分，贪心）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-number">3.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-2"><span class="toc-number">3.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D1-All-are-Same%EF%BC%88%E5%90%8C%E4%BD%99%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">D1. All are Same（同余）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-number">4.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-3"><span class="toc-number">4.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#E-Gardener-and-Tree%EF%BC%88%E6%90%9C%E7%B4%A2%EF%BC%8C%E6%A0%91%E8%AE%BA%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">E. Gardener and Tree（搜索，树论）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-number">5.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-4"><span class="toc-number">5.2.</span> <span class="toc-text">AC code</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Codeforces Round 748 (Div. 3)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Red9th</span>
+      </span>
       
-        <li class="menu-item">
-          <a href="/" class="menu-item-link">Home</a>
-        </li>
+    <div class="postdate">
       
-        <li class="menu-item">
-          <a href="/archives" class="menu-item-link">Archives</a>
-        </li>
+        <time datetime="2021-10-14T14:32:21.000Z" itemprop="datePublished">2021-10-14</time>
+        
       
-    </ul>
-  </nav>
-</header>
-<article class="post">
-  <div class="post-title">
-    <h1 class="article-title">Codeforces Round</h1>
-  </div>
-   <div class="post-meta">
-    <span class="post-time">2021-10-14</span>
-  </div>
-  <div class="post-content">
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" rel="tag">算法竞赛</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
     <blockquote>
 <p>Codeforces Round #748 (Div. 3)</p>
 <p>第一次打cf，反正自己多菜心里是再清楚不过了，老老实实补题（</p>
 <p>主要补了A B C D1 E</p>
 </blockquote>
-<span id="more"></span>
-
 <h2 id="A-Elections"><a href="#A-Elections" class="headerlink" title="A. Elections"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1593/problem/A">A. Elections</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>有三个人参加选举，三人有不同的选票，对每个人来说，至少要增加多少票才能让ta的选票严格大于其他两个人的。</p>
 <h3 id="AC-code"><a href="#AC-code" class="headerlink" title="AC code"></a>AC code</h3><p>最简单的一题了，直接写就行。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> t, a, b, c;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span>(t --)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">        <span class="type">int</span> m = <span class="number">0</span>;</span><br><span class="line">        m = <span class="built_in">max</span>(m, a);</span><br><span class="line">        m = <span class="built_in">max</span>(m, b);</span><br><span class="line">        m = <span class="built_in">max</span>(m, c);</span><br><span class="line">        <span class="keyword">if</span>(m == a &amp;&amp; a &gt; b &amp;&amp; a &gt; c) <span class="built_in">printf</span>(<span class="string">&quot;0 &quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, m - a + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(m == b &amp;&amp; b &gt; a &amp;&amp; b &gt; c) <span class="built_in">printf</span>(<span class="string">&quot;0 &quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, m - b + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(m == c &amp;&amp; c &gt; a &amp;&amp; c &gt; b) <span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, m - c + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -84,20 +191,141 @@
 
 
   </div>
-  <div class="post-footer">
-    
-      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E8%A1%A5%E9%A2%98/" rel="tag">补题</a></li></ul>
-    
-
-    <a href="#top" class="top">Back to Top</a>
-  </div>
 </article>
-<footer>
-  &copy; 2022
-  <span class="author">
-    red
-  </span>
-</footer>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects/">Projects</a></li>
+        
+      </ul>
     </div>
-  </body>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-Elections"><span class="toc-number">1.</span> <span class="toc-text">A. Elections</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code"><span class="toc-number">1.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-Make-it-Divisible-by-25"><span class="toc-number">2.</span> <span class="toc-text">B. Make it Divisible by 25</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-number">2.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-1"><span class="toc-number">2.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-Save-More-Mice%EF%BC%88%E4%BA%8C%E5%88%86%EF%BC%8C%E8%B4%AA%E5%BF%83%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">C. Save More Mice（二分，贪心）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-number">3.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-2"><span class="toc-number">3.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D1-All-are-Same%EF%BC%88%E5%90%8C%E4%BD%99%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">D1. All are Same（同余）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-number">4.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-3"><span class="toc-number">4.2.</span> <span class="toc-text">AC code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#E-Gardener-and-Tree%EF%BC%88%E6%90%9C%E7%B4%A2%EF%BC%8C%E6%A0%91%E8%AE%BA%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">E. Gardener and Tree（搜索，树论）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-number">5.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-code-4"><span class="toc-number">5.2.</span> <span class="toc-text">AC code</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&text=Codeforces Round 748 (Div. 3)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&is_video=false&description=Codeforces Round 748 (Div. 3)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Codeforces Round 748 (Div. 3)&body=Check out this article: http://example.com/2021/10/14/Codeforces-Round-748-Div-3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&title=Codeforces Round 748 (Div. 3)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&name=Codeforces Round 748 (Div. 3)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/10/14/Codeforces-Round-748-Div-3/&t=Codeforces Round 748 (Div. 3)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022
+    Red9th
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
 </html>
