@@ -14,10 +14,10 @@
 <meta property="og:description" content="一个鸽了一学期的小项目，终于在学期末结题了。 一、写脚本其实脚本的撰写没有花费很长时间，几天就写好并且测试完毕了，就是代码还是不够规范。 思路和学习 python 爬虫的时候跟老师带着写的豆瓣爬虫项目其实差不多。无非是我是爬取天气，而豆瓣爬虫是在爬取上面的电影信息。 1.1 困境虽然很快就完成了脚本，但是开始写脚本之前还是遇到了非常多的问题，在豆瓣爬虫的时候，由于豆瓣 top250 这个网页比较老">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/image-20211212155322845.png">
-<meta property="og:image" content="http://example.com/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/image-20211212155322845.png">
+<meta property="og:image" content="http://example.com/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/%5B%609%7DGR%5D%7D%7DGCQ38%5D190G@8%258.png">
 <meta property="og:image" content="http://example.com/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/image-20211212162046252.png">
 <meta property="article:published_time" content="2021-12-13T07:17:09.000Z">
-<meta property="article:modified_time" content="2022-10-12T13:11:20.466Z">
+<meta property="article:modified_time" content="2022-10-13T13:33:37.850Z">
 <meta property="article:author" content="Red9th">
 <meta property="article:tag" content="杂">
 <meta name="twitter:card" content="summary">
@@ -89,7 +89,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2022/10/12/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-d2l%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2022/10/13/2022-10-13-LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="Next post" href="/2021/10/14/Codeforces-Round-748-Div-3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -190,7 +190,7 @@
 </li>
 </ul>
 <h2 id="2-3-困境之四"><a href="#2-3-困境之四" class="headerlink" title="2.3 困境之四"></a>2.3 困境之四</h2><p>由于调用 qmsg 时的一些细小问题，后来去问了学长，他告诉我是 qq 和 msg 封装在一起和只使用 msg 调用接口来发送信息有区别，而这个区别可能就是导致一直无法成功发送的原因。</p>
-<p><img src="/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/image-20211212155322845.png" alt="image-20211212155322845"></p>
+<p><img src="/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/%5B%609%7DGR%5D%7D%7DGCQ38%5D190G@8%258.png" alt="image-20211212155322845"></p>
 <p>也就是下面的代码出的问题：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">         <span class="string">&quot;msg&quot;</span>: m,           <span class="comment"># 需要发送的消息</span></span><br><span class="line">         <span class="string">&quot;qq&quot;</span>: qq            <span class="comment"># 需要接收消息的QQ号码</span></span><br><span class="line">     &#125;</span><br><span class="line">url = <span class="string">&#x27;https://qmsg.zendee.cn/group/&#x27;</span> + KEY    <span class="comment"># 群消息推送接口</span></span><br></pre></td></tr></table></figure>
 
