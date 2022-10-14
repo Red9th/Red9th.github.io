@@ -8,17 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="上午写3.1线性回归的最后一题，概率论给孩子写傻了。看了别人的推导感觉又跟上面噪声为正态分布的差不多，流程都是先确定$x$观测到的特定$y$的似然，然后再求出似然函数，最后对似然函数等式左右两边取对数求出负对数似然，由于$\sigma$也是个常数，最后就还是剩那个均方误差。所以说：  在高斯噪声的假设下，最小化均方误差等价于对线性模型的极大似然估计。   课后第三题推导过程：  Exercise">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LinearRegression学习有感">
-<meta property="og:url" content="http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/index.html">
+<meta property="og:title" content="3.1线性回归[课后练习第3题]">
+<meta property="og:url" content="http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/index.html">
 <meta property="og:site_name" content="Red&#39;s blog">
 <meta property="og:description" content="上午写3.1线性回归的最后一题，概率论给孩子写傻了。看了别人的推导感觉又跟上面噪声为正态分布的差不多，流程都是先确定$x$观测到的特定$y$的似然，然后再求出似然函数，最后对似然函数等式左右两边取对数求出负对数似然，由于$\sigma$也是个常数，最后就还是剩那个均方误差。所以说：  在高斯噪声的假设下，最小化均方误差等价于对线性模型的极大似然估计。   课后第三题推导过程：  Exercise">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/006jR21kgy1h74nf3h6g0j30t60fygww.jpg">
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/006jR21kgy1h74nfguz89j30v704fjv6.jpg">
 <meta property="article:published_time" content="2022-10-13T12:51:14.000Z">
-<meta property="article:modified_time" content="2022-10-14T03:26:03.721Z">
+<meta property="article:modified_time" content="2022-10-14T13:42:07.284Z">
 <meta property="article:author" content="Red9th">
-<meta property="article:tag" content="杂">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://tva1.sinaimg.cn/large/006jR21kgy1h74nf3h6g0j30t60fygww.jpg">
     
@@ -40,7 +40,7 @@
       
     
     <!-- title -->
-    <title>LinearRegression学习有感</title>
+    <title>3.1线性回归[课后练习第3题]</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -88,6 +88,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" aria-label="Previous post" href="/2022/10/14/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" aria-label="Next post" href="/2021/12/13/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -102,17 +104,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&text=LinearRegression学习有感"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&is_video=false&description=LinearRegression学习有感"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=LinearRegression学习有感&body=Check out this article: http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&name=LinearRegression学习有感&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&t=LinearRegression学习有感"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&text=3.1线性回归[课后练习第3题]"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&is_video=false&description=3.1线性回归[课后练习第3题]"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=3.1线性回归[课后练习第3题]&body=Check out this article: http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&name=3.1线性回归[课后练习第3题]&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&t=3.1线性回归[课后练习第3题]"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -129,7 +131,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        LinearRegression学习有感
+        3.1线性回归[课后练习第3题]
     </h1>
 
 
@@ -152,7 +154,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/%E6%9D%82/" rel="tag">杂</a>
+        <a class="tag-link-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a>
     </div>
 
 
@@ -177,14 +179,14 @@
 <p>$$P(\mathbf y \mid \mathbf X) &#x3D; \prod_{i&#x3D;1}^{n} p(y^{(i)}|\mathbf{x}^{(i)})$$</p>
 <p>展开得：</p>
 <p>$$P(\mathbf y \mid \mathbf X) &#x3D; \frac{1}{2^n} \exp\left(\sum_{i&#x3D;1}^{n}-|y - \mathbf{w}^\top \mathbf{x} - b|\right)$$</p>
-<p>左右两边取对数（以$e$为底）</p>
+<p>左右两边取对数（以$e$为底）：</p>
 <p>$$\log{P(\mathbf y \mid \mathbf X)} &#x3D; n\log(\frac{1}{2}) + \sum_{i&#x3D;1}^{n}\left(-|y - \mathbf{w}^\top \mathbf{x} - b|\right)$$</p>
 <p>所以该模型下数据的负对数似然为：</p>
 <p>$$-\log{P(\mathbf y \mid \mathbf X)} &#x3D; n\log2 + \sum_{i&#x3D;1}^{n}\left(|y - \mathbf{w}^\top \mathbf{x} - b|\right)$$</p>
-<h2 id="Exercise-2-amp-3"><a href="#Exercise-2-amp-3" class="headerlink" title="Exercise 2&amp;3"></a>Exercise 2&amp;3</h2><ol start="2">
-<li><p>不能，因为求不了导。</p>
+<h2 id="Exercise-2-amp-3"><a href="#Exercise-2-amp-3" class="headerlink" title="Exercise 2&amp;3"></a>Exercise 2&amp;3</h2><ol>
+<li><p>不能，绝对差值函数不可导。（对于这个问题，可以看<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PX4y1g7KC?p=5&vd_source=22424b1dbf23fba347d6df7f637065f4">线性回归的QA</a>，在 1:17 秒沐神有讲。）</p>
 </li>
-<li><p>驻点处不可导，所以梯度下降到这个位置时，可能会来回震荡，但是求不出值来。解决办法：暂时不知道，感觉没什么好的解决办法。毕竟带绝对值了导不了。</p>
+<li><p>不可导的话，梯度下降到接近最优解的时候，可能会来回震荡，但是求不出值来。解决办法：暂时不知道，感觉没什么好的解决办法。毕竟带绝对值了导不了。</p>
 </li>
 </ol>
 <p>mmp，鬼知道这题做了多久。</p>
@@ -218,17 +220,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&text=LinearRegression学习有感"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&is_video=false&description=LinearRegression学习有感"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=LinearRegression学习有感&body=Check out this article: http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&title=LinearRegression学习有感"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&name=LinearRegression学习有感&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/13/LinearRegression%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/&t=LinearRegression学习有感"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&text=3.1线性回归[课后练习第3题]"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&is_video=false&description=3.1线性回归[课后练习第3题]"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=3.1线性回归[课后练习第3题]&body=Check out this article: http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&title=3.1线性回归[课后练习第3题]"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&name=3.1线性回归[课后练习第3题]&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/13/3.1%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0%E7%AC%AC3%E9%A2%98/&t=3.1线性回归[课后练习第3题]"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
