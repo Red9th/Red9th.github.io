@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="萌新看到对数似然那块还是有点傻了，试着根据书上的思路一步一步自己推导一遍。 首先似然函数：$$P(\mathbf{Y} \mid \mathbf{X}) &#x3D; \prod_{i&#x3D;1}^n P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$$其中索引 $i$ 的样本由特征向量 $x^{(i)}$ 和独热标签向量 $y^{(i}$ 组成。 左右取对数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.4softmax回归[理论学习]">
-<meta property="og:url" content="http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="Softmax 回归">
+<meta property="og:url" content="http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/index.html">
 <meta property="og:site_name" content="Red&#39;s blog">
 <meta property="og:description" content="萌新看到对数似然那块还是有点傻了，试着根据书上的思路一步一步自己推导一遍。 首先似然函数：$$P(\mathbf{Y} \mid \mathbf{X}) &#x3D; \prod_{i&#x3D;1}^n P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$$其中索引 $i$ 的样本由特征向量 $x^{(i)}$ 和独热标签向量 $y^{(i}$ 组成。 左右取对数">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-16T12:58:05.000Z">
-<meta property="article:modified_time" content="2022-10-17T14:10:55.530Z">
+<meta property="article:modified_time" content="2022-11-09T08:15:23.564Z">
 <meta property="article:author" content="Red9th">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>3.4softmax回归[理论学习]</title>
+    <title>Softmax 回归</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -86,7 +86,7 @@
       <ul>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2022/10/14/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%AD%A6%E4%B9%A0%E6%9C%89%E6%84%9F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2021/12/13/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81%5Bpython%5D/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -99,17 +99,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&text=3.4softmax回归[理论学习]"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&is_video=false&description=3.4softmax回归[理论学习]"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=3.4softmax回归[理论学习]&body=Check out this article: http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&name=3.4softmax回归[理论学习]&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&t=3.4softmax回归[理论学习]"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&text=Softmax 回归"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&is_video=false&description=Softmax 回归"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Softmax 回归&body=Check out this article: http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&name=Softmax 回归&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&t=Softmax 回归"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -126,7 +126,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        3.4softmax回归[理论学习]
+        Softmax 回归
     </h1>
 
 
@@ -200,17 +200,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&text=3.4softmax回归[理论学习]"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&is_video=false&description=3.4softmax回归[理论学习]"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=3.4softmax回归[理论学习]&body=Check out this article: http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&title=3.4softmax回归[理论学习]"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&name=3.4softmax回归[理论学习]&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/16/3-4softmax%E5%9B%9E%E5%BD%92-%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/&t=3.4softmax回归[理论学习]"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&text=Softmax 回归"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&is_video=false&description=Softmax 回归"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Softmax 回归&body=Check out this article: http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&title=Softmax 回归"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&name=Softmax 回归&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/16/Softmax%20%E5%9B%9E%E5%BD%92/&t=Softmax 回归"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
