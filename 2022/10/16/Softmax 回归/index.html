@@ -14,7 +14,7 @@
 <meta property="og:description" content="萌新看到对数似然那块还是有点傻了，试着根据书上的思路一步一步自己推导一遍。 首先似然函数：$$P(\mathbf{Y} \mid \mathbf{X}) &#x3D; \prod_{i&#x3D;1}^n P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$$其中索引 $i$ 的样本由特征向量 $x^{(i)}$ 和独热标签向量 $y^{(i}$ 组成。 左右取对数">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-16T12:58:05.000Z">
-<meta property="article:modified_time" content="2022-11-09T08:15:23.564Z">
+<meta property="article:modified_time" content="2023-03-24T04:59:10.303Z">
 <meta property="article:author" content="Red9th">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -77,7 +77,7 @@
      --><!--
        --><li><a href="/archives/">Writing</a></li><!--
      --><!--
-       --><li><a href="/projects/">Projects</a></li><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Red9th">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -85,7 +85,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2022/11/11/%E6%83%B3%E5%8E%BB%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A2%A6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2022/11/11/%E6%9D%82%E8%AE%B0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="Next post" href="/2021/12/13/%E8%87%AA%E5%8A%A8%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -165,7 +165,7 @@
 <p>左右取对数：<br>$$-\log P(\mathbf{Y} \mid \mathbf{X}) &#x3D; \sum_{i&#x3D;1}^n -\log P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$$</p>
 <p>根据最大似然估计，我们最大化 $P(\mathbf{Y} \mid \mathbf{X})$，相当于最小化负对数似然 $-\sum_{i&#x3D;1}^n \log P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$。而 $P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$ 就是确定输入为 $\mathbf{x}^{(i)}$ 情况下观测到特定的 $\mathbf{y}^{(i)}$ 的似然，这个对数似然就是损失函数。最小化负对数似然就是最小化损失函数。所以有：<br>$$l(\mathbf{y}^{(i)}, \hat{\mathbf{y} }^{(i)}) &#x3D; -\log P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})$$<br>其中 $l(\mathbf{y}^{(i)}, \hat{\mathbf{y}}^{(i)})$ 就是损失函数。</p>
 <p>分类问题下的损失函数通常会使用到<strong>交叉熵损失</strong>。即：<br>$$l(\mathbf{y}, \hat{\mathbf{y} }) &#x3D; - \sum_{j&#x3D;1}^q y_j \log \hat{y}_j$$<br>其中 $q$ 是类别的个数。而 $\mathbf{y}$ 是一个独热编码的向量，除了一项为1，其他均为0。所以这个式子最后只会留下一项。</p>
-<p>这个式子还可以继续往下推导：<br>$$\begin{split}\begin{aligned}<br>l(\mathbf{y}, \hat{\mathbf{y}})<br>&amp;&#x3D; -\sum_{j&#x3D;1}^q y_j \log \frac{\exp(o_j)}{\sum_{k&#x3D;1}^q \exp(o_k)} \<br>&amp;&#x3D; -\sum_{j&#x3D;1}^q y_j \left(\log (\exp(o_j)) - \log \sum_{k&#x3D;1}^q \exp(o_k)\right) \<br>&amp;&#x3D; \sum_{j&#x3D;1}^q y_j \left(\log \sum_{k&#x3D;1}^q \exp(o_k) - o_j\right) \<br>&amp;&#x3D; \log \sum_{k&#x3D;1}^q \exp(o_k) - \sum_{j&#x3D;1}^q y_j o_j.<br>\end{aligned}\end{split}$$</p>
+<p>这个式子还可以继续往下推导：<br>$$\begin{split}\begin{aligned}<br>l(\mathbf{y}, \hat{\mathbf{y}})<br>&amp;&#x3D; -\sum_{j&#x3D;1}^q y_j \log \frac{\exp(o_j)}{\sum_{k&#x3D;1}^q \exp(o_k)} \\<br>&amp;&#x3D; -\sum_{j&#x3D;1}^q y_j \left(\log (\exp(o_j)) - \log \sum_{k&#x3D;1}^q \exp(o_k)\right) \\<br>&amp;&#x3D; \sum_{j&#x3D;1}^q y_j \left(\log \sum_{k&#x3D;1}^q \exp(o_k) - o_j\right) \\<br>&amp;&#x3D; \log \sum_{k&#x3D;1}^q \exp(o_k) - \sum_{j&#x3D;1}^q y_j o_j.<br>\end{aligned}\end{split}$$</p>
 <p>最后一步的第一项化简就是根据独热编码的性质，只有 $y_i&#x3D;1$ 的那一项留下来了，其他为 0 就消掉了。</p>
 <p>对 $o_j$ 求导：<br>$$\partial_{o_j} l(\mathbf{y}, \hat{\mathbf{y} }) &#x3D; \frac{\exp(o_j)}{\sum_{k&#x3D;1}^q \exp(o_k)} - y_j &#x3D; \mathrm{softmax}(\mathbf{o})_j - y_j$$</p>
 <p>这个梯度正好就是观测值 $y$ 和 $\hat{y}$ 之间的差异。</p>
@@ -191,7 +191,7 @@
          
           <li><a href="/archives/">Writing</a></li>
          
-          <li><a href="/projects/">Projects</a></li>
+          <li><a target="_blank" rel="noopener" href="https://github.com/Red9th">Projects</a></li>
         
       </ul>
     </div>
@@ -233,7 +233,7 @@
     Copyright &copy;
     
     
-    2022-2023
+    2021-2022
     Red9th
   </div>
   <div class="footer-right">
@@ -246,7 +246,7 @@
      --><!--
        --><li><a href="/archives/">Writing</a></li><!--
      --><!--
-       --><li><a href="/projects/">Projects</a></li><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Red9th">Projects</a></li><!--
      -->
       </ul>
     </nav>
